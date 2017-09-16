@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Actors Page</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="jumbotron">
+        <h1 class="text-center"><span class="glyphicon glyphicon-fire"></span> Actors</h1>
+        <br>
+
+        <div class="text-center">
+
+            <a href="/">
+                <button type="button" class="btn btn-lg btn-danger"><span
+                        class="glyphicon glyphicon-credit-card"></span>  Home
+                </button>
+            </a>
+
+            <a href="/coolness-chart">
+                <button type="button" class="btn btn-lg btn-danger"><span
+                        class="glyphicon glyphicon-credit-card"></span> Coolness Chart
+                </button>
+            </a>
+            <a href="/attitude-chart/:attitude">
+                <button type="button" class="btn btn-lg btn-danger"><span
+                        class="glyphicon glyphicon-credit-card"></span> Attitude Chart
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <!-- Current Tables in Use -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Actors</h4>
+                </div>
+                <div class="panel-body" id="actorSelection">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <p>Control Panel</p>
+            <hr>
+            <p><a href="">API Github</a></p>
+        </div>
+    </footer>
+
+</div>
+
+
+<!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
+<script type="text/javascript">
+
+    // In this code, jQuery is used to "download" the data from our server
+    // We then dynamically display this content in our table. This is very similar to the group projects you just completed.
+    // It's also very similar to the NYT search application. In fact, I copied a ton of code from there.
+
+    function actors() {
+
+        // Here we get the location of the root page.
+        // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+        var currentURL = window.location.origin;
+
+        // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+        $.ajax({url: currentURL + "/api/cast", method: "GET"})
+            .done(function (actorData) {
+
+                // Here we are logging the URL so we have access to it for troubleshooting
+                console.log("------------------------------------");
+                console.log("URL: " + currentURL + "/api/cast");
+                console.log("------------------------------------");
+
+                // Here we then log the NYTData to console, where it will show up as an object.
+                console.log(actorData);
+                console.log("------------------------------------");
+
+                // Loop through and display each of the customers
+                for (var i = 0; i < actorData.length; i++) {
+
+                    // Create the HTML Well (Section) and Add the table content for each reserved table
+                    var actorSelection = $("<div>");
+                    actorSelection.addClass('well');
+                    actorSelection.attr('id', 'tableWell-' + i + 1);
+                    $('#actorSelection').append(actorSelection);
+
+                    var actorNumber = i + 1;
+
+
+                    // Then display the remaining fields in the HTML (Section Name, Date, URL)
+                    $("#tableWell-" + i + 1).append('<h2><span class="label label-primary">'
+                        + actorNumber + "</span> | " + actorData[i].name + "</h2>"
+                        + '<h2>'+ "Coolness Points: " + actorData[i].coolness + "</h2>"
+                        + '<h2>' + "Attitude: " + actorData[i].attitude + "</h2>");
+
+
+                }
+            });
+    }
+
+
+    // Run Queries!
+    // ==========================================
+    actors();
+
+</script>
+
+</body>
+</html>
