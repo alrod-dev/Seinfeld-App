@@ -19,25 +19,25 @@
 <div class="container">
 
     <div class="jumbotron">
-        <h1 class="text-center"><span class="glyphicon glyphicon-fire"></span> Attitude</h1>
+        <h1 class="text-center"><span class="glyphicon glyphicon-baby-formula"></span> Attitude</h1>
         <br>
 
         <div class="text-center">
             <a href="/">
-                <button type="button" class="btn btn-lg btn-danger"><span
-                        class="glyphicon glyphicon-credit-card"></span> Home
+                <button type="button" class="btn btn-lg btn-primary"><span
+                        class="glyphicon glyphicon-home"></span> Home
                 </button>
             </a>
 
             <a href="/coolness-chart">
                 <button type="button" class="btn btn-lg btn-danger"><span
-                        class="glyphicon glyphicon-credit-card"></span> Coolness Chart
+                        class="glyphicon glyphicon-thumbs-up"></span> Coolness-Chart
                 </button>
             </a>
 
             <a href="/cast">
-                <button type="button" class="btn btn-lg btn-danger"><span
-                        class="glyphicon glyphicon-credit-card"></span> Actors
+                <button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-user"></span>
+                    Cast
                 </button>
             </a>
         </div>
@@ -81,7 +81,7 @@
     function attitudeChart() {
 
         // Here we get the location of the root page.
-        // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+        // We use this instead of explicitly saying the URL is localhost:3000 because the url will change when we deploy.
         var currentURL = window.location.origin;
 
         // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
@@ -100,7 +100,7 @@
                 // Loop through and display each of the customers
                 for (var i = 0; i < actorData.length; i++) {
 
-                    // Create the HTML Well (Section) and Add the table content for each reserved table
+                    // Create the HTML Well (Section) and Add the actor content for each actor
                     var actorSelection = $("<div>");
                     actorSelection.addClass('well');
                     actorSelection.attr('id', 'tableWell-' + i + 1);
